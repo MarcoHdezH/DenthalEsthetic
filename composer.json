@@ -1,0 +1,19 @@
+{
+    "name": "marco/app-salon",
+    "description": "App Salon, MVC, SQL, PHP 8, SASS, Gulp",
+    "type": "project",
+    "autoload":{
+        "psr-4":{
+            "MVC\\":"./",
+            "Controllers\\":"./controllers",
+            "Model\\":"./models"
+        }
+    },
+    "authors": [
+        {
+            "name": "Marco Hernandez",
+            "email": "marco7245@hotmail.com"
+        }
+    ],
+    "require": {}
+}
