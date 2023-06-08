@@ -13,15 +13,15 @@ class LoginController {
         echo "Desde Logout";
     }
 
-    public static function olvidar(){
-        echo "Desde Olvidar";
+    public static function olvidar(Router $router){
+        $router->render('auth/olvide-password',[]);
     }
 
     public static function recuperar(){
         echo "Desde Recuperar";
     }
 
-    public static function crear(){
-        echo "Desde Crear";
+    public static function crear(Router $router){
+        $router->render('auth/crear-cuenta',[]);
     }
 }

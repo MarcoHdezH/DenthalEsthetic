@@ -18,5 +18,5 @@
 
 <div class="acciones">
     <a href="/crear-cuenta">¿Aún no tienes una Cuenta? ¡Unete hoy mismo!</a>
-    <a href="/crear-cuenta">¿Olvidaste tu Contraseña?</a>
+    <a href="/olvidar">¿Olvidaste tu Contraseña?</a>
 </div>
