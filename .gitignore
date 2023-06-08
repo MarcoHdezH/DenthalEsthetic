@@ -2,8 +2,6 @@ src/
 vendor/
 node_modules/
 
-package.json
-package-lock.json
 appsalon_mvc.sql
 gulpfile.js
 .DS_Store
