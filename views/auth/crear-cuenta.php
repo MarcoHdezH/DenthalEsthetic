@@ -2,7 +2,7 @@
 <p class="descripcion-pagina">Por favor llena el siguiente Formulario</p>
 
 <?php 
-    include_once __DIR__."/../templates/alertas.php"
+    include_once __DIR__."/../templates/alertas.php";
 ?>
 
 <form class="formulario" method="POST" action="/crear-cuenta">
@@ -29,7 +29,7 @@
 
     <div class="campo">
         <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="email" placeholder="Contraseña">
+        <input type="password" id="password" name="password" placeholder="Contraseña">
     </div>
 
     <input class="boton" type="submit" value="Crear Cuenta">

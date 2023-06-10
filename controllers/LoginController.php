@@ -34,6 +34,20 @@ class LoginController {
             $usuario->sincronizar($_POST);
             $alertas = $usuario->validarNuevaCuenta();
 
+            //Revisar alertas
+
+            if(empty($alertas)){
+
+                //Verificar is Eciste un Usuario
+                $resultado=$usuario->existeUsuario();
+        
+                if($resultado->num_rows){
+                    $alertas = Usuario::getAlertas();
+                }else{
+                    //Usuario Nuevo
+                }
+            }
+
         }
 
         $router->render('auth/crear-cuenta',[

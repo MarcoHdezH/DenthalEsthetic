@@ -51,7 +51,23 @@ class Usuario extends ActiveRecord {
             self::$alertas['error'][]='Tu Contraseña es Obligatoria';
         }
 
+        if(strlen($this->password)<6){
+            self::$alertas['error'][]='La Contraseña debe tener al menos 6 Caracteres';
+        }
+
         return self::$alertas;
+    }
+
+    //Busca coincidencias de Usuarios
+    public function existeUsuario(){
+        $query="SELECT * FROM ".self::$tabla." WHERE email='".$this->email."' LIMIT 1";
+        $resultado = self::$db->query($query); 
+
+        if($resultado->num_rows){
+            self::$alertas['error'][]='Este Correo ya esta Registrado';
+        }
+
+        return $resultado;
     }
 
 
