@@ -44,7 +44,12 @@ class LoginController {
                 if($resultado->num_rows){
                     $alertas = Usuario::getAlertas();
                 }else{
-                    //Usuario Nuevo
+                    
+                    //Crear Usuario Nuevo
+                    //TODO: Hashear Contraseña
+                    $usuario->hashPassword();
+
+                    debuguear($usuario);
                 }
             }
 
