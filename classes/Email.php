@@ -1,0 +1,63 @@
+<?php
+
+namespace Classes;
+
+use PHPMailer\PHPMailer\PHPMailer;
+
+class Email
+{
+
+    public $nombre;
+    public $apellido;
+    public $email;
+    public $token;
+
+    public function __construct($nombre, $apellido, $email, $token)
+    {
+        $this->nombre = $nombre;
+        $this->apellido = $apellido;
+        $this->email = $email;
+        $this->token = $token;
+    }
+
+    public function enviarConfirmacion()
+    {
+
+        //Credenciales MailTrap
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->SMTPAuth = true;
+        $mail->Port = 2525;
+        $mail->Username = '9baa72625b6f07';
+        $mail->Password = '5eccc7fa0cc332';
+
+        //Credenciales Gmail
+        // $mail = new PHPMailer();
+        // $mail->isSMTP();
+        // $mail->Host = 'smtp.gmail.com';
+        // $mail->SMTPAuth = true;
+        // $mail->Port = 2525;
+        // $mail->Username = 'lincemistico02@gmail.com';
+        // $mail->Password = 'ojrvfzbgemwpxldi';
+
+        $mail->setFrom('DentalEsthetic@correo.com', 'Dental Esthetic');
+        $mail->addAddress($this->email, $this->nombre . ' ' . $this->apellido);
+        $mail->Subject = 'Confirmacion de Creacion de Cuenta';
+
+        $mail->isHTML(TRUE);
+        $mail->CharSet = 'UTF-8';
+
+        //Conteindo  del Mensaje
+        $contenido = '<html>';
+        $contenido .= '<p> <strong>Hola' . $this->nombre . ' ' . $this->apellido . '</strong> Has creado una cuenta en Dental Esthetic,
+                        Solo debes confirmarla en el sigueinte enlace </p>';
+        $contenido .= "<p>Presiona aquí: <a href='http://localhost:3000/confirmar-cuenta?token=" . $this->token . "'>Confirmar Cuenta</a></p>";
+        $contenido .= "<p>Si tu no solicitaste esta cuenta, favor de ignorar este mensaje</p>";
+        $contenido .= "</html>";
+
+        $mail->Body=$contenido;
+
+        $mail->send();
+    }
+}
