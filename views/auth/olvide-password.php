@@ -1,6 +1,7 @@
 <h1 class="nombre-pagina">Olvide mi Contraseña</h1>
-
 <p class="descripcion-pagina">Escribe el correo electronico asociado a tu cuenta</p>
+
+<?php include_once __DIR__ . '/../templates/alertas.php' ?>
 
 <form class="formulario" method="POST" action="/olvidar">
     <div class="campo">

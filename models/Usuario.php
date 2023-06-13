@@ -62,10 +62,17 @@ class Usuario extends ActiveRecord {
         if(!$this->email){
             self::$alertas['error'][]='El Correo Electronico es Obligatorio';
         }
-        if(!$this->email){
+        if(!$this->password){
             self::$alertas['error'][]='La Contraseña es Obligatoria';
         }
 
+        return self::$alertas;
+    }
+
+    public function validarEmail(){
+        if(!$this->email){
+            self::$alertas['error'][]='El Correo Electronico es Obligatorio';
+        }
         return self::$alertas;
     }
 
@@ -87,6 +94,16 @@ class Usuario extends ActiveRecord {
 
     public function crearToken(){
         $this->token=uniqid();
+    }
+
+    public function comprobarPasswordAndVerificado($password){
+        $resultado=password_verify($password,$this->password);
+
+        if(!$resultado || !$this->confirmado){
+            self::$alertas['error'][]='Contraseña Incorrecta o tu Cuenta aun no ha sido confirmada';
+        }else{
+            return true;
+        }
     }
 
 

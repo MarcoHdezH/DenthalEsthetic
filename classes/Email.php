@@ -22,7 +22,6 @@ class Email
 
     public function enviarConfirmacion()
     {
-
         //Credenciales MailTrap
         $mail = new PHPMailer();
         $mail->isSMTP();
@@ -53,6 +52,45 @@ class Email
         $contenido .= '<p> <strong>Hola' . $this->nombre . ' ' . $this->apellido . '</strong> Has creado una cuenta en Dental Esthetic,
                         Solo debes confirmarla en el sigueinte enlace </p>';
         $contenido .= "<p>Presiona aquí: <a href='http://localhost:3000/confirmar-cuenta?token=" . $this->token . "'>Confirmar Cuenta</a></p>";
+        $contenido .= "<p>Si tu no solicitaste esta cuenta, favor de ignorar este mensaje</p>";
+        $contenido .= "</html>";
+
+        $mail->Body=$contenido;
+
+        $mail->send();
+    }
+
+    public function enviarInstrucciones(){
+        //Credenciales MailTrap
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->SMTPAuth = true;
+        $mail->Port = 2525;
+        $mail->Username = '9baa72625b6f07';
+        $mail->Password = '5eccc7fa0cc332';
+
+        //Credenciales Gmail
+        // $mail = new PHPMailer();
+        // $mail->isSMTP();
+        // $mail->Host = 'smtp.gmail.com';
+        // $mail->SMTPAuth = true;
+        // $mail->Port = 2525;
+        // $mail->Username = 'lincemistico02@gmail.com';
+        // $mail->Password = 'ojrvfzbgemwpxldi';
+
+        $mail->setFrom('DentalEsthetic@correo.com', 'Dental Esthetic');
+        $mail->addAddress($this->email, $this->nombre . ' ' . $this->apellido);
+        $mail->Subject = 'Reestablecer Contraseña';
+
+        $mail->isHTML(TRUE);
+        $mail->CharSet = 'UTF-8';
+
+        //Conteindo  del Mensaje
+        $contenido = '<html>';
+        $contenido .= '<p> <strong>Hola' . $this->nombre . ' ' . $this->apellido . '</strong> Has solicitado un restablecimiento de tu contraseña,
+                        Solo debes dar click en el sigueinte enlace </p>';
+        $contenido .= "<p>Presiona aquí: <a href='http://localhost:3000/recuperar?token=" . $this->token . "'>Restablecer Contraseña</a></p>";
         $contenido .= "<p>Si tu no solicitaste esta cuenta, favor de ignorar este mensaje</p>";
         $contenido .= "</html>";
 

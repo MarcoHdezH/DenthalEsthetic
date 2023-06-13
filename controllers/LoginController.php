@@ -7,6 +7,8 @@ use Model\Usuario;
 use MVC\Router;
 
 class LoginController {
+
+    //TODO: Validar Inicio de Sesion
     public static function login(Router $router){
 
         $alertas = [];
@@ -14,25 +16,87 @@ class LoginController {
         if($_SERVER['REQUEST_METHOD']==='POST'){
             $auth = new Usuario($_POST);
             $alertas=$auth->validarLogin();
+
+            if(empty($alertas)){
+                //Comprobar si Existe Usuario
+                $usuario = Usuario::where('email',$auth->email);
+
+                if($usuario){
+                    //Verificar Contraseña
+                    if($usuario->comprobarPasswordAndVerificado($auth->password)){
+                        //TODO: Inicio de Sesion de Usuario
+                        session_start();
+                        $_SESSION['id']=$usuario->id;
+                        $_SESSION['nombre']=$usuario->nombre." ".$usuario->apellido;
+                        $_SESSION['email']=$usuario->email;
+                        $_SESSION['login']=true;
+
+                        //Redireccionamiento (Administrador o Usuario Normal)
+                        if($usuario->admin === "1"){
+                            $_SESSION['admin']=$usuario->admin ?? null;
+                            header('Location: /cita');
+                        }else{
+                            header('Location: /cita');
+                        }
+                    }
+
+                }else{
+                    Usuario::setAlerta('error','Usuario no encontrado');
+                }
+            }
         }
+
+        $alertas = Usuario::getAlertas();
 
         $router->render('auth/login',[
             'alertas'=>$alertas
         ]);
     }
 
+    //Cerrar Sesion de Usuario
     public static function logout(){
         echo "Desde Logout";
     }
 
     public static function olvidar(Router $router){
-        $router->render('auth/olvide-password',[]);
+
+        $alertas = [];
+
+        if($_SERVER['REQUEST_METHOD']==='POST'){
+            $auth = new Usuario($_POST);
+            $alertas=$auth->validarEmail();
+
+            if(empty($alertas)){
+                $usuario = Usuario::where('email',$auth->email);
+
+                if($usuario && $usuario->confirmado ==="1"){
+                    $usuario->crearToken();
+                    $usuario->guardar();
+
+                    //TODO: Enviar Email de Resstablecer Contraseña
+
+                    $email = new Email($usuario->nombre,$usuario->apellido,$usuario->email,$usuario->token);
+                    $email->enviarInstrucciones();
+
+                    Usuario::setAlerta('exito','Revisa tu correo electronico');
+                }else{
+                    Usuario::setAlerta('error','El usuario no Existe o no esta Confirmado');
+                }
+            }
+        }
+
+        $alertas=Usuario::getAlertas();
+
+        $router->render('auth/olvide-password',[
+            'alertas'=>$alertas
+        ]);
     }
 
     public static function recuperar(){
         echo "Desde Recuperar";
     }
 
+    //Crea un nuevo Usuario
     public static function crear(Router $router){
 
         $usuario = new Usuario;
@@ -69,14 +133,12 @@ class LoginController {
                     $email->enviarConfirmacion();
 
                     //Crear Usuario
-                    // $resultado = $usuario->guardar();
+                    $resultado = $usuario->guardar();
                     if($resultado){
                         header('Location: /mensaje');
                     }
-
                 }
             }
-
         }
 
         $router->render('auth/crear-cuenta',[
