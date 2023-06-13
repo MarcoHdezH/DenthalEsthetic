@@ -58,6 +58,17 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
+    public function validarLogin(){
+        if(!$this->email){
+            self::$alertas['error'][]='El Correo Electronico es Obligatorio';
+        }
+        if(!$this->email){
+            self::$alertas['error'][]='La Contraseña es Obligatoria';
+        }
+
+        return self::$alertas;
+    }
+
     //Busca coincidencias de Usuarios
     public function existeUsuario(){
         $query="SELECT * FROM ".self::$tabla." WHERE email='".$this->email."' LIMIT 1";
