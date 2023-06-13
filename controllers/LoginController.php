@@ -92,8 +92,46 @@ class LoginController {
         ]);
     }
 
-    public static function recuperar(){
-        echo "Desde Recuperar";
+    public static function recuperar(Router $router){
+
+        $alertas =[];
+
+        $token = s($_GET['token']);
+
+        $usuario = Usuario::where('token',$token);
+
+        if(empty($usuario)){
+            Usuario::setAlerta('error','Token de Recuperacion no Valido');
+            $error=true;
+        }
+
+        if($_SERVER['REQUEST_METHOD']==='POST'){
+            //Guardar Nueva Contraseña
+            $password = new Usuario($_POST);
+            $alertas=$password->validarPassword();
+
+            if(empty($alertas)){
+                $usuario->password=null;
+
+                $usuario->password = $password->password;
+                $usuario->hashPassword();
+
+                $usuario->token=null;
+
+                $resultado=$usuario->guardar();
+
+                if($resultado){
+                    header('Location: /');
+                }
+            }
+        }
+
+        $alertas = Usuario::getAlertas();
+
+        $router->render('auth/recuperar-password',[
+            'alertas'=>$alertas,
+            'error'=>$error
+        ]);
     }
 
     //Crea un nuevo Usuario
@@ -141,6 +179,8 @@ class LoginController {
             }
         }
 
+        $alertas = Usuario::getAlertas();
+
         $router->render('auth/crear-cuenta',[
             'usuario'=>$usuario,
             'alertas'=>$alertas,
@@ -165,6 +205,7 @@ class LoginController {
             $usuario->token=null;
             $usuario->guardar();
             Usuario::setAlerta('exito','Registro Completado Exitosamente');
+            $error=true;
         }
 
         $alertas = Usuario::getAlertas();

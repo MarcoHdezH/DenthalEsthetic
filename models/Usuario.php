@@ -76,6 +76,17 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
+    public function validarPassword(){
+        if(!$this->password){
+            self::$alertas['error'][]='La Contraseña es Obligatoria';
+        }
+
+        if(strlen($this->password)<6){
+            self::$alertas['error'][]='La Contraseña debe tener al menos 6 caracteres';
+        }
+        return self::$alertas;
+    }
+
     //Busca coincidencias de Usuarios
     public function existeUsuario(){
         $query="SELECT * FROM ".self::$tabla." WHERE email='".$this->email."' LIMIT 1";
