@@ -46,7 +46,7 @@
 
     <div class="paginacion">
         <button class="boton" id="anterior"> &laquo; Anterior</button>
-        <button class="boton" id="anterior">Siguiente &raquo;</button>
+        <button class="boton" id="siguiente">Siguiente &raquo;</button>
     </div>
 </div>
 
