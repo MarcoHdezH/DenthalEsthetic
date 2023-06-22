@@ -55,7 +55,10 @@ class LoginController {
 
     //Cerrar Sesion de Usuario
     public static function logout(){
-        echo "Desde Logout";
+        session_start();
+        $_SESSION = [];
+
+        header('Location: /');
     }
 
     public static function olvidar(Router $router){

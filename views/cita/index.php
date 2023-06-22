@@ -7,6 +7,7 @@
         <button type="button" data-paso="1">Servicios</button>
         <button type="button" data-paso="2">Información de Cita</button>
         <button type="button" data-paso="3">Resumen</button>
+        <button type="button"><a href="/logout">Cerrar Sesión</a></button>
     </nav>
 
     <div id="paso-1" class="seccion">
