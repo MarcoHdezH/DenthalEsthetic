@@ -34,7 +34,7 @@ class LoginController {
                         //Redireccionamiento (Administrador o Usuario Normal)
                         if($usuario->admin === "1"){
                             $_SESSION['admin']=$usuario->admin ?? null;
-                            header('Location: /cita');
+                            header('Location: /admin');
                         }else{
                             header('Location: /cita');
                         }

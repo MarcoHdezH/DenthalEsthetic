@@ -1,5 +1,7 @@
-<h1 class="nombre-pagina">Bienvenid@ <?php echo $_SESSION['nombre'] ?></h1>
-<p class="descripcion-pagina">Crea una Nueva Cita e Ingresa tus datos a Continuacion</p>
+<h1 class="nombre-pagina">Agendar una nueva Cita</h1>
+<p class="descripcion-pagina">Crea una Cita e Ingresa tus datos a Continuacion</p>
+
+<?php include_once __DIR__ . '/../templates/barra.php'; ?>
 
 <div id="app">
     
@@ -7,7 +9,6 @@
         <button type="button" data-paso="1">Servicios</button>
         <button type="button" data-paso="2">Información de Cita</button>
         <button type="button" data-paso="3">Resumen</button>
-        <button type="button"><a href="/logout">Cerrar Sesión</a></button>
     </nav>
 
     <div id="paso-1" class="seccion">
