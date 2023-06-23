@@ -28,9 +28,8 @@
             <p>Correo: <span> <?php echo $cita->email ?></span> </p>
             <p>Telefono: <span> <?php echo $cita->telefono ?></span> </p>
             <h3>Servicios</h3>
-            <?php $idCita = $cita->id; } ?>
+        <?php $idCita = $cita->id; } ?>
             <p class="servicio"> <?php echo $cita->servicio ?> </p>
-        </li>
         <?php } ?>
     </ul>
 </div>
