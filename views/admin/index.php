@@ -15,7 +15,7 @@
 
 <?php
     if(count($citas)===0){
-        echo "<h3>No hay citas Registradas en esta día</h3>";
+        echo "<h3>No hay citas Registradas en este día</h3>";
     }
 ?>
 
