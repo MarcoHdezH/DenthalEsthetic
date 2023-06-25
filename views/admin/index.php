@@ -13,16 +13,23 @@
     </form>
 </div>
 
+<?php
+    if(count($citas)===0){
+        echo "<h3>No hay citas Registradas en esta día</h3>";
+    }
+?>
+
 <div id="citas-admin">
     <ul class="citas">
         <?php
             $idCita = 0;
 
-            foreach($citas as $cita){
+            foreach($citas as $key=>$cita){
                 if($idCita!= $cita->id){
         ?>
         <li>
-            <p>ID: <span> <?php echo $cita->id ?></span> </p>
+            <h3>Información General</h3>
+            <!-- <p>ID: <span> <?php echo $cita->id ?></span> </p> -->
             <p>Hora: <span> <?php echo $cita->hora ?></span> </p>
             <p>Cliente: <span> <?php echo $cita->cliente ?></span> </p>
             <p>Correo: <span> <?php echo $cita->email ?></span> </p>
@@ -30,7 +37,20 @@
             <h3>Servicios</h3>
         <?php $idCita = $cita->id; } ?>
             <p class="servicio"> <?php echo $cita->servicio ?> </p>
-        <?php } ?>
+
+            <?php
+                $actual = $cita->id;
+                $proximo = $citas[$key+1]->id ?? 0;
+
+                if(esUltimo($actual,$proximo)){?>
+
+                <form action="/api/eliminar" method="POST">
+                    <input type="hidden" name="id" value="<?php echo $cita->id; ?>">
+                    <input type="submit" class="boton-eliminar" value="Eliminar Cita">
+                </form>
+            <?php }
+            } ?>
+        
     </ul>
 </div>
 
