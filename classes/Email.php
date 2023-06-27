@@ -28,17 +28,8 @@ class Email
         $mail->Host = 'sandbox.smtp.mailtrap.io';
         $mail->SMTPAuth = true;
         $mail->Port = 2525;
-        $mail->Username = '9baa72625b6f07';
-        $mail->Password = '5eccc7fa0cc332';
-
-        //Credenciales Gmail
-        // $mail = new PHPMailer();
-        // $mail->isSMTP();
-        // $mail->Host = 'smtp.gmail.com';
-        // $mail->SMTPAuth = true;
-        // $mail->Port = 2525;
-        // $mail->Username = 'lincemistico02@gmail.com';
-        // $mail->Password = 'ojrvfzbgemwpxldi';
+        $mail->Username = $_ENV['MAIL_USER'];
+        $mail->Password = $_ENV['MAIL_PASS'];
 
         $mail->setFrom('DentalEsthetic@correo.com', 'Dental Esthetic');
         $mail->addAddress($this->email, $this->nombre . ' ' . $this->apellido);
@@ -67,17 +58,8 @@ class Email
         $mail->Host = 'sandbox.smtp.mailtrap.io';
         $mail->SMTPAuth = true;
         $mail->Port = 2525;
-        $mail->Username = '9baa72625b6f07';
-        $mail->Password = '5eccc7fa0cc332';
-
-        //Credenciales Gmail
-        // $mail = new PHPMailer();
-        // $mail->isSMTP();
-        // $mail->Host = 'smtp.gmail.com';
-        // $mail->SMTPAuth = true;
-        // $mail->Port = 2525;
-        // $mail->Username = 'lincemistico02@gmail.com';
-        // $mail->Password = 'ojrvfzbgemwpxldi';
+        $mail->Username = $_ENV['MAIL_USER'];
+        $mail->Password = $_ENV['MAIL_PASS'];
 
         $mail->setFrom('DentalEsthetic@correo.com', 'Dental Esthetic');
         $mail->addAddress($this->email, $this->nombre . ' ' . $this->apellido);
